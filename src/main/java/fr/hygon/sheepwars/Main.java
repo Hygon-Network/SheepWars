@@ -1,7 +1,7 @@
 package fr.hygon.sheepwars;
 
 import fr.hygon.sheepwars.commands.ChangeTeamCommand;
-import fr.hygon.sheepwars.commands.TestSheepCommand;
+import fr.hygon.sheepwars.commands.GetSheepsCommand;
 import fr.hygon.sheepwars.events.GUIManager;
 import fr.hygon.sheepwars.events.PlayerJoinLeaveEvent;
 import fr.hygon.sheepwars.events.SheepActions;
@@ -45,7 +45,7 @@ public class Main extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("testsheep").setExecutor(new TestSheepCommand());
+        getCommand("getsheeps").setExecutor(new GetSheepsCommand());
         getCommand("changeteam").setExecutor(new ChangeTeamCommand());
     }
 

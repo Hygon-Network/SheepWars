@@ -4,5 +4,5 @@ api-version: 1.17
 author: AmGone
 main: fr.hygon.sheepwars.Main
 commands:
-  testsheep:
+  getsheeps:
   changeteam:

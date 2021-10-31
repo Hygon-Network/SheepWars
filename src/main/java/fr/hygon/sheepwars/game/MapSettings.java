@@ -169,4 +169,9 @@ public class MapSettings {
             incendiarySheepPower = 25;
         }
     }
+
+    public static int icingSheepRadiusEffect;
+    private static void getIcingSheepRadiusEffect() {
+        icingSheepRadiusEffect = getInt("sheep.icing-sheep.radius-effect", 10);
+    }
 }
