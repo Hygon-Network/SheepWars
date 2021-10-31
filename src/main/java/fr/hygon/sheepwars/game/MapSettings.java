@@ -102,6 +102,11 @@ public class MapSettings {
         return configFile.getLocation(path, configFile.getLocation(path));
     }
 
+    public static int sheepObtentionTime;
+    private static void getSheepObtentionTime() {
+        sheepObtentionTime = getInt("game-settings.sheep-obtention-time", 20);
+    }
+
     public static Location spawnLocation;
     private static void getSpawnLocation() {
         spawnLocation = getLocation("spawns.spawn", new Location(Bukkit.getWorld("world"), 0, 100, 0));

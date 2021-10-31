@@ -1,15 +1,19 @@
 package fr.hygon.sheepwars.events;
 
 import fr.hygon.sheepwars.sheeps.CustomSheep;
-import fr.hygon.sheepwars.sheeps.SearchingSheep;
-import net.minecraft.world.phys.Vec3;
+import fr.hygon.sheepwars.sheeps.SheepList;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftSheep;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -35,8 +39,31 @@ public class SheepActions implements Listener {
         }
     }
 
-    private boolean isOnGround(Player player) {
-        /* is that a method ? */
-        return !player.isFlying() && player.getLocation().subtract(0, 0.1, 0).getBlock().getType().isSolid();
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        ItemStack clickedItem = event.getItem();
+
+        if(clickedItem == null || clickedItem.getItemMeta() == null || clickedItem.getItemMeta().displayName() == null) {
+            return;
+        }
+
+        for(SheepList sheep : SheepList.values()) {
+            if(clickedItem.isSimilar(sheep.getItemStack())) {
+                CustomSheep customSheep = sheep.getCustomSheep(player);
+                if(customSheep == null) {
+                    return;
+                }
+
+                World world = Bukkit.getWorld("world");
+                if(world == null) {
+                    Bukkit.getLogger().severe("The name of the map isn't \"world\".");
+                    return;
+                }
+
+                ((CraftWorld) world).getHandle().addEntity(customSheep, CreatureSpawnEvent.SpawnReason.CUSTOM);
+                clickedItem.setAmount(clickedItem.getAmount() - 1);
+            }
+        }
     }
 }
