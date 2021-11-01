@@ -138,9 +138,9 @@ public class GameManager {
     public static void endGame(Teams winningTeam) {
         gameStatus = GameStatus.FINISHED;
 
-        Bukkit.broadcast(Component.text("Fin de la partie! L'équipe ").color(TextColor.color(255, 255, 255)) // TODO color
+        Bukkit.broadcast(Component.text("Fin de la partie! L'équipe ").color(TextColor.color(20, 175, 225))
                 .append(winningTeam.getName())
-                .append(Component.text("a gagnée!").color(TextColor.color(255, 255, 255)))); // TODO color
+                .append(Component.text("a gagnée!").color(TextColor.color(20, 175, 225))));
 
         for (Player players : Bukkit.getOnlinePlayers()) {
             if(TeamManager.getTeam(players) == winningTeam) { // TODO should we only give coins to players that stayed alive or should we also give them to the players that died?

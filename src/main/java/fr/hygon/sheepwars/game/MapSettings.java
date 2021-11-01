@@ -78,7 +78,6 @@ public class MapSettings {
     }
 
     private static float getFloat(String path, float def) {
-        // TODO: Figure out why getFloat() always returns the default value.
         return (float) getDouble(path, (double) def);
     }
 

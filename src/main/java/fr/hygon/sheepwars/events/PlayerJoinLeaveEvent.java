@@ -30,7 +30,8 @@ public class PlayerJoinLeaveEvent implements Listener {
 
         player.teleport(MapSettings.spawnLocation);
 
-        //TODO welcome message
+        event.joinMessage(player.displayName().color(TextColor.color(20, 155, 0))
+                .append(Component.text(" a rejoint la partie.")).color(TextColor.color(20, 200, 0)));
         player.getInventory().clear();
         player.getInventory().setItem(8, ItemsList.TEAM_SELECTOR.getPreparedItemStack());
     }
@@ -39,7 +40,8 @@ public class PlayerJoinLeaveEvent implements Listener {
     public void onLeave(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        // TODO leave message
+        event.quitMessage(player.displayName().color(TextColor.color(255, 150, 0))
+                .append(Component.text(" a rejoint la partie.")).color(TextColor.color(255, 160, 0)));
         if(GameManager.getGameStatus() == GameStatus.STARTED) {
             GameManager.playerHasDied(player);
         }

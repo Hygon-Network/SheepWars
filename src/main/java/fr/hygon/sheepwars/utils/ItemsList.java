@@ -1,10 +1,12 @@
 package fr.hygon.sheepwars.utils;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public enum ItemsList {
     TEAM_SELECTOR(Material.PAPER, Component.text("Choisir son équipe"), "Équipes", () -> {
@@ -33,6 +35,17 @@ public enum ItemsList {
         purpleTeam.setItemMeta(purpleTeamMeta);
 
         return purpleTeam;
+    }),
+    RANDOM_TEAM(Material.PLAYER_HEAD, Component.text("Aléatoire").color(TextColor.color(150, 150, 150)), "", () -> {
+        ItemStack randomTeam = new ItemStack(Material.PLAYER_HEAD, 1);
+        SkullMeta randomTeamMeta = (SkullMeta) randomTeam.getItemMeta();
+
+        randomTeamMeta.displayName(Component.text("Aléatoire").color(TextColor.color(150, 150, 150)));
+        randomTeamMeta.setBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDQyMDY0YWE0ZGUzN" +
+                "WY2NjliMDRlODdiMWUwNGQ0MmVjZWU4MjliOWJjNTY2MTM4YWEyNzk0Nzk4YWZiZWMifX19");
+        randomTeam.setItemMeta(randomTeamMeta);
+
+        return randomTeam;
     });
 
     private final Material material;
