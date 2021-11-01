@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public record CustomExplosion(Location centerBlock, int power, double damage) {
+public record CustomExplosion(Player damager, Location centerBlock, int power, double damage) {
 
     public void explode() {
         List<int[]> circleBlocks = new ArrayList<>();
@@ -67,7 +67,7 @@ public record CustomExplosion(Location centerBlock, int power, double damage) {
                 double healthDamagePercent = 100 - (entities.getLocation().distance(centerBlock) / power) * 100;
                 double damageToDeal = (damage / 100) * healthDamagePercent;
 
-                ((Player) entities).damage(damageToDeal);
+                ((Player) entities).damage(damageToDeal, damager);
             }
         }
     }

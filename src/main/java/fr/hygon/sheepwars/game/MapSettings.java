@@ -107,6 +107,11 @@ public class MapSettings {
         sheepObtentionTime = getInt("game-settings.sheep-obtention-time", 20);
     }
 
+    public static int mapVoidY;
+    private static void getMapVoidY() {
+        mapVoidY = getInt("game-settings.map-void-y", -10);
+    }
+
     public static Location spawnLocation;
     private static void getSpawnLocation() {
         spawnLocation = getLocation("spawns.spawn", new Location(Bukkit.getWorld("world"), 0, 100, 0));

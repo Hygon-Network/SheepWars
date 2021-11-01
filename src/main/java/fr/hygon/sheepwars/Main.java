@@ -2,9 +2,7 @@ package fr.hygon.sheepwars;
 
 import fr.hygon.sheepwars.commands.ChangeTeamCommand;
 import fr.hygon.sheepwars.commands.GetSheepsCommand;
-import fr.hygon.sheepwars.events.GUIManager;
-import fr.hygon.sheepwars.events.PlayerJoinLeaveEvent;
-import fr.hygon.sheepwars.events.SheepActions;
+import fr.hygon.sheepwars.events.*;
 import fr.hygon.sheepwars.game.GameManager;
 import fr.hygon.sheepwars.game.MapSettings;
 import fr.hygon.sheepwars.utils.Scoreboard;
@@ -42,6 +40,8 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Scoreboard(), this);
         getServer().getPluginManager().registerEvents(new GUIManager(), this);
         getServer().getPluginManager().registerEvents(new SheepActions(), this);
+        getServer().getPluginManager().registerEvents(new OnDeath(), this);
+        getServer().getPluginManager().registerEvents(new PlayerUtilsEvent(), this);
     }
 
     private void registerCommands() {

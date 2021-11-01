@@ -33,7 +33,7 @@ public class IcingSheep extends CustomSheep {
         findPlayersInRadius(MapSettings.icingSheepRadiusEffect).forEach(player -> {
             player.setFreezeTicks(player.getMaxFreezeTicks());
             if(tickCount % 20 == 0) {
-                player.damage(2);
+                player.damage(2, getLauncher().getBukkitEntity());
             }
         });
     }

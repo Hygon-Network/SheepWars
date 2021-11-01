@@ -48,7 +48,7 @@ public class ExplodeWhenNearPlayerGoal extends Goal {
         }
 
         if(explodeTick == 40) {
-            CustomExplosion explosion = new CustomExplosion(sheep.getBukkitMob().getLocation(), MapSettings.searchingSheepExplosionPower, 10);
+            CustomExplosion explosion = new CustomExplosion(sheep.getLauncher().getBukkitEntity(), sheep.getBukkitMob().getLocation(), MapSettings.searchingSheepExplosionPower, 10);
             explosion.explode();
             sheep.discard();
         }
