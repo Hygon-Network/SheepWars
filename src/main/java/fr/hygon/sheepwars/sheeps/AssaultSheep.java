@@ -1,9 +1,11 @@
 package fr.hygon.sheepwars.sheeps;
 
+import fr.hygon.sheepwars.Main;
 import fr.hygon.sheepwars.events.SheepActions;
 import fr.hygon.sheepwars.game.MapSettings;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class AssaultSheep extends CustomSheep {
 
@@ -18,6 +20,8 @@ public class AssaultSheep extends CustomSheep {
         getLauncher().startRiding(this, true);
 
         getBukkitEntity().setVelocity(getLauncher().getBukkitEntity().getLocation().getDirection().multiply(MapSettings.sheepVelocity));
+
+        SheepActions.assaultingPlayers.add(getLauncher().getUUID());
     }
 
     @Override
@@ -30,11 +34,18 @@ public class AssaultSheep extends CustomSheep {
         super.tick();
 
         setRot(getLauncher().getYRot(), getLauncher().getXRot());
-        if(isOnGround()) { //If the sheep was able to touch the ground, it means that the player stayed on it
-            SheepActions.assaultingPlayers.remove(getLauncher().getUUID());
+        if(isOnGround()) {
             discard();
         } else if(getPassengers().isEmpty()) {
-            SheepActions.assaultingPlayers.remove(getLauncher().getUUID());
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if(getLauncher().fallDistance == 0) {
+                        SheepActions.assaultingPlayers.remove(getLauncher().getUUID());
+                        cancel();
+                    }
+                }
+            }.runTaskTimer(Main.getPlugin(), 20, 1);
             discard();
         }
     }
