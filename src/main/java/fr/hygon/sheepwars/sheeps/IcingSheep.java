@@ -20,6 +20,8 @@ public class IcingSheep extends CustomSheep {
 
         setPos(getLauncher().getX(), getLauncher().getY() + 1, getLauncher().getZ());
         setRot(getLauncher().getYRot(), getLauncher().getXRot());
+
+        getBukkitEntity().setVelocity(getLauncher().getBukkitEntity().getLocation().getDirection().multiply(MapSettings.sheepVelocity));
     }
 
     @Override

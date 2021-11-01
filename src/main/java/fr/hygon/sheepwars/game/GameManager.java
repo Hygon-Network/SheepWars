@@ -1,6 +1,7 @@
 package fr.hygon.sheepwars.game;
 
 import fr.hygon.sheepwars.Main;
+import fr.hygon.sheepwars.scoreboard.SheepWarsScoreboard;
 import fr.hygon.sheepwars.sheeps.SheepList;
 import fr.hygon.sheepwars.teams.TeamManager;
 import fr.hygon.sheepwars.teams.Teams;
@@ -98,11 +99,17 @@ public class GameManager {
                 if(timeBeforeNextWool == 0) {
                     timeBeforeNextWool = MapSettings.sheepObtentionTime;
                     Bukkit.getOnlinePlayers().forEach(players -> {
-                        SheepList sheep = SheepList.values()[ThreadLocalRandom.current().nextInt(0, SheepList.values().length)];
-
-                        players.getInventory().addItem(sheep.getItemStack());
+                        if(!deadPlayers.contains(players)) {
+                            SheepList sheep = SheepList.values()[ThreadLocalRandom.current().nextInt(0, SheepList.values().length)];
+                            players.getInventory().addItem(sheep.getItemStack());
+                        }
                     });
                 }
+
+                Bukkit.getOnlinePlayers().forEach(players -> {
+                    SheepWarsScoreboard.getScoreboard(players).setNewWoolTime(timeBeforeNextWool);
+                    SheepWarsScoreboard.updateScoreboard(players);
+                });
             }
         }.runTaskTimer(Main.getPlugin(), 0, 20);
     }

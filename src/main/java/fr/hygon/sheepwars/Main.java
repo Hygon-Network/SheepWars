@@ -5,7 +5,7 @@ import fr.hygon.sheepwars.commands.GetSheepsCommand;
 import fr.hygon.sheepwars.events.*;
 import fr.hygon.sheepwars.game.GameManager;
 import fr.hygon.sheepwars.game.MapSettings;
-import fr.hygon.sheepwars.utils.Scoreboard;
+import fr.hygon.sheepwars.scoreboard.SheepWarsScoreboard;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -37,7 +37,7 @@ public class Main extends JavaPlugin {
 
     private void registerEvents() {
         getServer().getPluginManager().registerEvents(new PlayerJoinLeaveEvent(), this);
-        getServer().getPluginManager().registerEvents(new Scoreboard(), this);
+        getServer().getPluginManager().registerEvents(new SheepWarsScoreboard(), this);
         getServer().getPluginManager().registerEvents(new GUIManager(), this);
         getServer().getPluginManager().registerEvents(new SheepActions(), this);
         getServer().getPluginManager().registerEvents(new OnDeath(), this);

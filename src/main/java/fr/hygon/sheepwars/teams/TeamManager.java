@@ -1,6 +1,6 @@
 package fr.hygon.sheepwars.teams;
 
-import fr.hygon.sheepwars.utils.Scoreboard;
+import fr.hygon.sheepwars.scoreboard.SheepWarsScoreboard;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -34,8 +34,6 @@ public class TeamManager {
 
             player.displayName(Component.text(player.getName()));
 
-            Scoreboard.updateTeam(player, team);
-
             if(team == Teams.ORANGE) {
                 orangeTeam.add(player.getUniqueId());
                 newName = player.displayName().color(TextColor.color(255, 120, 0));
@@ -45,6 +43,11 @@ public class TeamManager {
             } else {
                 newName = player.displayName().color(TextColor.color(255, 255, 255));
             }
+
+            Bukkit.getOnlinePlayers().forEach(players -> {
+                SheepWarsScoreboard.getScoreboard(players).updateTeam(player, team);
+                SheepWarsScoreboard.updateScoreboard(players);
+            });
 
             player.playerListName(newName);
             player.displayName(newName);

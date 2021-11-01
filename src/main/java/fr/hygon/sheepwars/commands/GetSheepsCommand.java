@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class GetSheepsCommand implements CommandExecutor {
 
@@ -18,7 +19,9 @@ public class GetSheepsCommand implements CommandExecutor {
 
         if(player.getRank().equals(Ranks.ADMIN)) {
             for(SheepList sheepList : SheepList.values()) {
-                player.getInventory().addItem(sheepList.getItemStack());
+                ItemStack sheepItem = sheepList.getItemStack();
+                sheepItem.setAmount(64);
+                player.getInventory().addItem(sheepItem);
             }
         }
         return false;

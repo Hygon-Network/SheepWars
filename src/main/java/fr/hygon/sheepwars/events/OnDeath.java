@@ -1,6 +1,7 @@
 package fr.hygon.sheepwars.events;
 
 import fr.hygon.sheepwars.game.GameManager;
+import fr.hygon.sheepwars.scoreboard.SheepWarsScoreboard;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
@@ -20,6 +21,8 @@ public class OnDeath implements Listener {
 
             killer.sendActionBar(Component.text("+5 coins (1 kill)").color(TextColor.color(255, 150, 25)));
             killer.addCoins(5);
+            SheepWarsScoreboard.getScoreboard(killer).addKill();
+            SheepWarsScoreboard.updateScoreboard(killer);
         } else {
             event.deathMessage(deadPlayer.displayName().append(Component.text(" est mort.")));
         }
