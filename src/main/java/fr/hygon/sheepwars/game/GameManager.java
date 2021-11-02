@@ -34,7 +34,7 @@ public class GameManager {
         timerTask = new BukkitRunnable() {
             @Override
             public void run() {
-                if(Bukkit.getOnlinePlayers().size() == 2) {
+                if(Bukkit.getOnlinePlayers().size() >= 2) {
                     if(oldPlayersOnline != Bukkit.getOnlinePlayers().size()) {
                         oldPlayersOnline = Bukkit.getOnlinePlayers().size();
                         YokuraAPI.setStatus(Status.STARTING);

@@ -32,7 +32,7 @@ public class ExplosiveSheep extends CustomSheep {
 
         int ticksBeforeExplosion = 6 * 20;
         if(ticksOnGround == ticksBeforeExplosion) {
-            CustomExplosion customExplosion = new CustomExplosion(getLauncher().getBukkitEntity(), getBukkitEntity().getLocation(), MapSettings.explosiveSheepPower, MapSettings.explosiveSheepDamage);
+            CustomExplosion customExplosion = new CustomExplosion(this, getBukkitEntity().getLocation(), MapSettings.explosiveSheepPower, MapSettings.explosiveSheepDamage);
             discard();
             customExplosion.explode();
         }

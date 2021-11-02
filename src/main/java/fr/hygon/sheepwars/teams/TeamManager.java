@@ -57,12 +57,23 @@ public class TeamManager {
     }
 
     public static void fillEmptyTeams() {
+        boolean switcher = false;
         for(Player players : Bukkit.getOnlinePlayers()) {
             if(getTeam(players) == Teams.NONE) {
-                if(!isFull(Teams.ORANGE)) {
-                    setTeam(players, Teams.ORANGE);
-                } else if(isFull(Teams.PURPLE)) {
-                    setTeam(players, Teams.PURPLE);
+                if(!switcher) {
+                    switcher = true;
+                    if(!isFull(Teams.ORANGE)) {
+                        setTeam(players, Teams.ORANGE);
+                    } else {
+                        setTeam(players, Teams.PURPLE);
+                    }
+                } else {
+                    switcher = false;
+                    if(!isFull(Teams.PURPLE)) {
+                        setTeam(players, Teams.PURPLE);
+                    } else {
+                        setTeam(players, Teams.ORANGE);
+                    }
                 }
             }
         }

@@ -40,7 +40,7 @@ public class AntiGravitySheepGoal extends Goal {
             CraftPlayer bukkitPlayer = (CraftPlayer) players.getBukkitEntity();
             bukkitPlayer.setVelocity(sheep.getBukkitMob().getLocation().toVector().subtract(bukkitPlayer.getLocation().toVector()).normalize().multiply(0.2));
             if(sheep.tickCount % 5 == 0) {
-                players.getBukkitEntity().damage(0.5, sheep.getLauncher().getBukkitEntity());
+                players.getBukkitEntity().damage(0.5, sheep.getBukkitEntity());
             }
             bukkitPlayer.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, bukkitPlayer.getLocation(), 4, 1, 1, 1, 0, null, true);
         }

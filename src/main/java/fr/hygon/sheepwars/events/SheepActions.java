@@ -1,17 +1,23 @@
 package fr.hygon.sheepwars.events;
 
+import fr.hygon.sheepwars.game.GameManager;
+import fr.hygon.sheepwars.scoreboard.SheepWarsScoreboard;
 import fr.hygon.sheepwars.sheeps.CustomSheep;
 import fr.hygon.sheepwars.sheeps.SheepList;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftSheep;
 import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -37,6 +43,27 @@ public class SheepActions implements Listener {
 
             if(nmsSheep instanceof CustomSheep && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if(event.getDamager() instanceof Sheep && event.getEntity() instanceof Player damaged) {
+            CustomSheep customSheep = (CustomSheep) ((CraftSheep) event.getDamager()).getHandle();
+            Player damager = customSheep.getLauncher().getBukkitEntity();
+            event.setCancelled(true);
+
+            damaged.damage(event.getFinalDamage());
+
+            if(damaged.getHealth() - event.getFinalDamage() <= 0) {
+                GameManager.playerHasDied(damaged);
+                Bukkit.broadcast(damaged.displayName().append(Component.text(" a été tué par ").append(damager.displayName()).append(Component.text("."))));
+
+                damager.sendActionBar(Component.text("+5 coins (1 kill)").color(TextColor.color(255, 150, 25)));
+                damager.addCoins(5);
+                SheepWarsScoreboard.getScoreboard(damager).addKill();
+                SheepWarsScoreboard.updateScoreboard(damager);
             }
         }
     }

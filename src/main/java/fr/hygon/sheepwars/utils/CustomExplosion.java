@@ -1,5 +1,6 @@
 package fr.hygon.sheepwars.utils;
 
+import fr.hygon.sheepwars.sheeps.CustomSheep;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public record CustomExplosion(Player damager, Location centerBlock, int power, double damage) {
+public record CustomExplosion(CustomSheep cause, Location centerBlock, int power, double damage) {
 
     public void explode() {
         List<int[]> circleBlocks = new ArrayList<>();
@@ -67,12 +68,13 @@ public record CustomExplosion(Player damager, Location centerBlock, int power, d
                 double healthDamagePercent = 100 - (entities.getLocation().distance(centerBlock) / power) * 100;
                 double damageToDeal = (damage / 100) * healthDamagePercent;
 
-                ((Player) entities).damage(damageToDeal, damager);
+                ((Player) entities).damage(damageToDeal, cause.getBukkitEntity());
             }
         }
     }
 
     private static Vector getRandomVector() {
-        return new Vector(ThreadLocalRandom.current().nextDouble(-1, 1), ThreadLocalRandom.current().nextDouble(0.3, 1), ThreadLocalRandom.current().nextDouble(-1, 1));
+        return new Vector(ThreadLocalRandom.current().nextDouble(-1, 1),
+                ThreadLocalRandom.current().nextDouble(0.3, 1), ThreadLocalRandom.current().nextDouble(-1, 1));
     }
 }
