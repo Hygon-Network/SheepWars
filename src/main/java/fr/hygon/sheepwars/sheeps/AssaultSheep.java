@@ -3,6 +3,8 @@ package fr.hygon.sheepwars.sheeps;
 import fr.hygon.sheepwars.Main;
 import fr.hygon.sheepwars.events.SheepActions;
 import fr.hygon.sheepwars.game.MapSettings;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -18,6 +20,7 @@ public class AssaultSheep extends CustomSheep {
         setRot(getLauncher().getYRot(), getLauncher().getXRot());
 
         getLauncher().startRiding(this, true);
+        getBukkitEntity().getWorld().playSound(getBukkitEntity().getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 2.0F, 0F);
 
         getBukkitEntity().setVelocity(getLauncher().getBukkitEntity().getLocation().getDirection().multiply(MapSettings.sheepVelocity));
 
@@ -32,6 +35,9 @@ public class AssaultSheep extends CustomSheep {
     @Override
     public void tick() {
         super.tick();
+
+        getBukkitEntity().getWorld().spawnParticle(Particle.CLOUD, getBukkitEntity().getLocation(), 3, 0.2, 0.2, 0.2, 0.3, null, true);
+        getBukkitEntity().getWorld().spawnParticle(Particle.FLAME, getBukkitEntity().getLocation(), 1, 0, 0, 0, 0.3, null, true);
 
         setRot(getLauncher().getYRot(), getLauncher().getXRot());
         if(isOnGround()) {

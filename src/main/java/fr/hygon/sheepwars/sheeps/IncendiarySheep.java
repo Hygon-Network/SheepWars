@@ -40,14 +40,18 @@ public class IncendiarySheep extends CustomSheep {
 
             getBukkitEntity().getWorld().spawnParticle(Particle.LAVA, getX(), getY(), getZ(), 10, 2, 2, 2, 0.1, null, true);
             getBukkitEntity().getWorld().spawnParticle(Particle.FLAME, getX(), getY(), getZ(), 20, 0.2, 0.2, 0.2, 1, null, true);
-            getBukkitEntity().getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, getX(), getY(), getZ(), 20, 0.2, 0.2, 0.2, 1, null, true);
+            getBukkitEntity().getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, getX(), getY(), getZ(), 50, 0.2, 0.2, 0.2, 1, null, true);
             getBukkitEntity().getWorld().spawnParticle(Particle.EXPLOSION_LARGE, getX(), getY(), getZ(), 1, 0.2, 0.2, 0.2, 1, null, true);
 
             getBukkitEntity().getWorld().playSound(getBukkitEntity().getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, 1.0F, 1.0F);
 
         }
 
-        setColor(tickCount % 4 == 0 ? DyeColor.WHITE : DyeColor.ORANGE);
+        if (activeTicks % 3 == 0) {
+            setColor(getColor() == DyeColor.ORANGE ? DyeColor.WHITE : DyeColor.ORANGE);
+            getBukkitEntity().getWorld().playSound(getBukkitEntity().getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 1.0F, 0.7F);
+        }
+
         getBukkitEntity().getWorld().spawnParticle(Particle.LAVA, getX(), getY(), getZ(), 1, 1, 1, 1, 0.1, null, true);
         getBukkitEntity().getWorld().spawnParticle(Particle.FLAME, getX(), getY(), getZ(), 2, 0.2, 0.2, 0.2, 0.1, null, true);
     }
