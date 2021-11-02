@@ -2,8 +2,7 @@ package fr.hygon.sheepwars.sheeps;
 
 import fr.hygon.sheepwars.game.MapSettings;
 import net.minecraft.world.item.DyeColor;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,7 +13,7 @@ public class IncendiarySheep extends CustomSheep {
     public IncendiarySheep(Player player) {
         super(((CraftPlayer) player).getHandle());
 
-        setColor(DyeColor.GREEN);
+        setColor(DyeColor.ORANGE);
 
         setPos(getLauncher().getX(), getLauncher().getY() + 1, getLauncher().getZ());
         setRot(getLauncher().getYRot(), getLauncher().getXRot());
@@ -38,9 +37,19 @@ public class IncendiarySheep extends CustomSheep {
         if(activeTicks == 80) {
             burnGround();
             discard();
+
+            getBukkitEntity().getWorld().spawnParticle(Particle.LAVA, getX(), getY(), getZ(), 10, 2, 2, 2, 0.1, null, true);
+            getBukkitEntity().getWorld().spawnParticle(Particle.FLAME, getX(), getY(), getZ(), 20, 0.2, 0.2, 0.2, 1, null, true);
+            getBukkitEntity().getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, getX(), getY(), getZ(), 20, 0.2, 0.2, 0.2, 1, null, true);
+            getBukkitEntity().getWorld().spawnParticle(Particle.EXPLOSION_LARGE, getX(), getY(), getZ(), 1, 0.2, 0.2, 0.2, 1, null, true);
+
+            getBukkitEntity().getWorld().playSound(getBukkitEntity().getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, 1.0F, 1.0F);
+
         }
 
-        setColor(tickCount % 2 == 0 ? DyeColor.WHITE : DyeColor.ORANGE);
+        setColor(tickCount % 4 == 0 ? DyeColor.WHITE : DyeColor.ORANGE);
+        getBukkitEntity().getWorld().spawnParticle(Particle.LAVA, getX(), getY(), getZ(), 1, 1, 1, 1, 0.1, null, true);
+        getBukkitEntity().getWorld().spawnParticle(Particle.FLAME, getX(), getY(), getZ(), 2, 0.2, 0.2, 0.2, 0.1, null, true);
     }
 
     private void burnGround() {
