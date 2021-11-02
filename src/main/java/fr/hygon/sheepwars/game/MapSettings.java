@@ -178,4 +178,14 @@ public class MapSettings {
     private static void getIcingSheepRadiusEffect() {
         icingSheepRadiusEffect = getInt("sheep.icing-sheep.radius-effect", 10);
     }
+
+    public static int glowingSheepRadius;
+    private static void getGlowingSheepRadius() {
+        glowingSheepRadius = getInt("sheep.glowing-sheep.radius-effect", 15);
+    }
+
+    public static int glowingSheepDuration;
+    private static void getGlowingSheepDuration() {
+        glowingSheepDuration = getInt("sheep.glowing-sheep.duration", 25);
+    }
 }

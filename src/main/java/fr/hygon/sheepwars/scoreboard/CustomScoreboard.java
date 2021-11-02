@@ -1,5 +1,6 @@
 package fr.hygon.sheepwars.scoreboard;
 
+import fr.hygon.sheepwars.sheeps.CustomSheep;
 import fr.hygon.sheepwars.teams.TeamManager;
 import fr.hygon.sheepwars.teams.Teams;
 import net.kyori.adventure.text.Component;
@@ -124,5 +125,15 @@ public class CustomScoreboard {
         setOrangeAlivePlayers(TeamManager.getOrangePlayersAlive());
         setPurpleAlivePlayers(TeamManager.getPurplePlayersAlive());
         updateScoreboard();
+    }
+
+    public void registerSheepColor(CustomSheep sheep, NamedTextColor color) {
+        Team team = scoreboard.getTeam(color.asHexString());
+        if(team == null) {
+            team = scoreboard.registerNewTeam(color.asHexString());
+            team.color(color);
+        }
+
+        team.addEntry(sheep.getUUID().toString());
     }
 }

@@ -17,7 +17,8 @@ public enum SheepList {
     EXPLOSIVE(Component.text("Mouton explosif").color(TextColor.color(220, 0, 25)), Material.RED_WOOL, ExplosiveSheep.class),
     INCENDIARY(Component.text("Mouton incendiaire").color(TextColor.color(255, 120, 0)), Material.ORANGE_WOOL, IncendiarySheep.class),
     ANTIGRAVITY(Component.text("Mouton à antigravité").color(TextColor.color(20, 20, 20)), Material.BLACK_WOOL, AntiGravitySheep.class),
-    ICING(Component.text("Mouton glaçant").color(TextColor.color(0, 200, 250)), Material.CYAN_WOOL, IcingSheep.class);
+    ICING(Component.text("Mouton glaçant").color(TextColor.color(0, 200, 250)), Material.CYAN_WOOL, IcingSheep.class),
+    GLOWING(Component.text("Mouton lumineux").color(TextColor.color(255, 210, 0)), Material.YELLOW_WOOL, GlowingSheep.class);
 
     private final Component name;
     private final Material wool;

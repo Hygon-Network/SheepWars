@@ -3,6 +3,7 @@ package fr.hygon.sheepwars.events;
 import fr.hygon.sheepwars.game.GameManager;
 import fr.hygon.sheepwars.scoreboard.SheepWarsScoreboard;
 import fr.hygon.sheepwars.sheeps.CustomSheep;
+import fr.hygon.sheepwars.sheeps.GlowingSheep;
 import fr.hygon.sheepwars.sheeps.SheepList;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -13,7 +14,6 @@ import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftSheep;
 import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
@@ -21,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -105,9 +106,26 @@ public class SheepActions implements Listener {
     }
 
     @EventHandler
-    public void onEntityTurnToBlock(EntityDropItemEvent event) {
+    public void onEntityDropItem(EntityDropItemEvent event) {
         if(event.getEntity() instanceof FallingBlock) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDeath(EntityDeathEvent event) {
+        System.out.println("event death");
+        if(event.getEntity() instanceof Sheep) {
+            System.out.println("sheep");
+        }
+            if(((CraftSheep) event.getEntity()).getHandle() instanceof CustomSheep) {
+                System.out.println("custom sheep");
+                if(((CraftSheep) event.getEntity()).getHandle() instanceof GlowingSheep glowingSheep) {
+                    if(((CraftSheep) event.getEntity()).getHandle() instanceof CustomSheep) {
+                        System.out.println("glowing sheep");
+                    glowingSheep.removeAllGlowingEntities();
+                }
+            }
         }
     }
 }
