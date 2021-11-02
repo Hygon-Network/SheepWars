@@ -1,5 +1,6 @@
 package fr.hygon.sheepwars.teams;
 
+import fr.hygon.sheepwars.game.GameManager;
 import fr.hygon.sheepwars.scoreboard.SheepWarsScoreboard;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -105,5 +106,13 @@ public class TeamManager {
         }
 
         return purpleTeamList;
+    }
+
+    public static int getOrangePlayersAlive() {
+        return (int) GameManager.getPlayersAlive().stream().filter(alivePlayers -> getTeam(alivePlayers) == Teams.ORANGE).count();
+    }
+
+    public static int getPurplePlayersAlive() {
+        return (int) GameManager.getPlayersAlive().stream().filter(alivePlayers -> getTeam(alivePlayers) == Teams.PURPLE).count();
     }
 }

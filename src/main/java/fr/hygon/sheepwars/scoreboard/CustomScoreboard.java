@@ -1,5 +1,6 @@
 package fr.hygon.sheepwars.scoreboard;
 
+import fr.hygon.sheepwars.teams.TeamManager;
 import fr.hygon.sheepwars.teams.Teams;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -14,10 +15,11 @@ public class CustomScoreboard {
 
     private final Player player;
 
-    private int time = 0;
     private int newWoolTime = 0;
     private int newBonusTime = 0;
     private int kills = 0;
+    private int orangeAlivePlayers = 0;
+    private int purpleAlivePlayers = 0;
 
     public CustomScoreboard(Player player) {
         this.player = player;
@@ -25,10 +27,6 @@ public class CustomScoreboard {
         this.scoreboard = scoreboardManager.getNewScoreboard();
 
         updateScoreboard();
-    }
-
-    public void setTime(int time) {
-        this.time = time;
     }
 
     public void setNewWoolTime(int newWoolTime) {
@@ -41,6 +39,14 @@ public class CustomScoreboard {
 
     public void addKill() {
         kills++;
+    }
+
+    public void setOrangeAlivePlayers(int orangeAlivePlayers) {
+        this.orangeAlivePlayers = orangeAlivePlayers;
+    }
+
+    public void setPurpleAlivePlayers(int purpleAlivePlayers) {
+        this.purpleAlivePlayers = purpleAlivePlayers;
     }
 
     public void updateScoreboard() {
@@ -73,10 +79,10 @@ public class CustomScoreboard {
         Score players = objective.getScore("§7Joueurs §8»");
         players.setScore(3);
 
-        Score orangePlayersAlive = objective.getScore("§6Oranges §7» §a0");
+        Score orangePlayersAlive = objective.getScore("§6Oranges §7» §a" + orangeAlivePlayers);
         orangePlayersAlive.setScore(2);
 
-        Score purplePlayersAlive = objective.getScore("§5Violets §7» §a0" );
+        Score purplePlayersAlive = objective.getScore("§5Violets §7» §a" + purpleAlivePlayers);
         purplePlayersAlive.setScore(1);
 
         Score bar2 = objective.getScore("§8§m§l---------------");
@@ -115,7 +121,8 @@ public class CustomScoreboard {
         } else {
             noTeam.addEntry(updatedPlayer.getName());
         }
-
-        player.setScoreboard(scoreboard);
+        setOrangeAlivePlayers(TeamManager.getOrangePlayersAlive());
+        setPurpleAlivePlayers(TeamManager.getPurplePlayersAlive());
+        updateScoreboard();
     }
 }

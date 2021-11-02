@@ -77,9 +77,9 @@ public class GameManager {
     private static void startGame() {
         gameStatus = GameStatus.STARTED;
         YokuraAPI.setStatus(Status.WAITING_PLAYERS);
-        TeamManager.fillEmptyTeams();
 
         playersAlive.addAll(Bukkit.getOnlinePlayers());
+        TeamManager.fillEmptyTeams();
 
         for(Player players : TeamManager.getPurplePlayers()) {
             players.teleport(MapSettings.purpleSpawnLocation);
@@ -124,21 +124,20 @@ public class GameManager {
 
         player.setGameMode(GameMode.SPECTATOR);
 
-        int orangePlayersAlive = 0;
-        int purplePlayersAlive = 0;
+        int orangePlayersAlive = TeamManager.getOrangePlayersAlive();
+        int purplePlayersAlive = TeamManager.getPurplePlayersAlive();
 
-        for(Player alivePlayers : playersAlive) {
-            if(TeamManager.getTeam(alivePlayers) == Teams.ORANGE) {
-                orangePlayersAlive++;
-            } else if(TeamManager.getTeam(alivePlayers) == Teams.PURPLE) {
-                purplePlayersAlive++;
-            }
-        }
 
         if(purplePlayersAlive == 0 && orangePlayersAlive > 0) {
             endGame(Teams.ORANGE);
         } else if(orangePlayersAlive == 0 && purplePlayersAlive > 0) {
             endGame(Teams.PURPLE);
+        }
+
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            SheepWarsScoreboard.getScoreboard(players).setOrangeAlivePlayers(orangePlayersAlive);
+            SheepWarsScoreboard.getScoreboard(players).setPurpleAlivePlayers(purplePlayersAlive);
+            SheepWarsScoreboard.updateScoreboard(players);
         }
     }
 
@@ -154,5 +153,9 @@ public class GameManager {
                 players.addCoins(20); // TODO is 20 a good value?
             }
         }
+    }
+
+    public static ArrayList<Player> getPlayersAlive() {
+        return playersAlive;
     }
 }
