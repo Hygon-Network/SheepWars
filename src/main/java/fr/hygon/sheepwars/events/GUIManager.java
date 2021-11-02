@@ -4,6 +4,8 @@ import fr.hygon.sheepwars.teams.TeamManager;
 import fr.hygon.sheepwars.teams.Teams;
 import fr.hygon.sheepwars.utils.ItemsList;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -50,11 +52,18 @@ public class GUIManager implements Listener {
 
         if(clickedItem.equals(ItemsList.ORANGE_TEAM.getPreparedItemStack())) {
             TeamManager.setTeam(player, Teams.ORANGE);
-            player.sendMessage(Component.text("Vous avez été mis dans l'équipe orange."));
+            player.sendMessage(Component.text("» ").color(TextColor.color(NamedTextColor.GRAY))
+                    .append(Component.text("Vous avez rejoint l'").color(TextColor.color(255, 255, 75))
+                    .append(Component.text("Équipe Orange").color(TextColor.color(255, 120, 0))
+                    .append(Component.text(".").color(TextColor.color(TextColor.color(255, 255, 75)))))));
+
             player.closeInventory();
         } else if(clickedItem.equals(ItemsList.PURPLE_TEAM.getPreparedItemStack())) {
             TeamManager.setTeam(player, Teams.PURPLE);
-            player.sendMessage(Component.text("Vous avez été mis dans l'équipe violette."));
+            player.sendMessage(Component.text("» ").color(TextColor.color(NamedTextColor.GRAY))
+                    .append(Component.text("Vous avez rejoint l'").color(TextColor.color(255, 255, 75))
+                    .append(Component.text("Équipe Violette").color(TextColor.color(195, 35, 255))
+                    .append(Component.text(".").color(TextColor.color(TextColor.color(255, 255, 75)))))));
             player.closeInventory();
         }
     }

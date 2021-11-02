@@ -5,8 +5,10 @@ import fr.hygon.sheepwars.scoreboard.SheepWarsScoreboard;
 import fr.hygon.sheepwars.sheeps.CustomSheep;
 import fr.hygon.sheepwars.sheeps.SheepList;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftSheep;
@@ -58,10 +60,16 @@ public class SheepActions implements Listener {
 
             if(damaged.getHealth() - event.getFinalDamage() <= 0) {
                 GameManager.playerHasDied(damaged);
-                Bukkit.broadcast(damaged.displayName().append(Component.text(" a été tué par ").append(damager.displayName()).append(Component.text("."))));
+                Bukkit.broadcast(Component.text("☠ ").color(TextColor.color(225, 25, 25))
+                        .append(Component.text("» ").color(TextColor.color(NamedTextColor.GRAY))
+                        .append(damaged.displayName()
+                        .append(Component.text(" a été tué par ").color(TextColor.color(255, 255, 75))
+                        .append(damager.displayName())
+                        .append(Component.text(".").color(TextColor.color(255, 255, 75)))))));
 
-                damager.sendActionBar(Component.text("+5 coins (1 kill)").color(TextColor.color(255, 150, 25)));
+                damager.sendActionBar(Component.text("+5 coins (Kill)").color(TextColor.color(255, 150, 25)));
                 damager.addCoins(5);
+                damager.playSound(damager.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 0.0F);
                 SheepWarsScoreboard.getScoreboard(damager).addKill();
                 SheepWarsScoreboard.updateScoreboard(damager);
             }

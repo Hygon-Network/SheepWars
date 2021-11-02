@@ -6,20 +6,25 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public enum ItemsList {
-    TEAM_SELECTOR(Material.PAPER, Component.text("» ").color(TextColor.color(NamedTextColor.GRAY)).decoration(TextDecoration.ITALIC, false)
-            //.append(Component.text("Choisir son équipe").color(TextColor.color(60, 130, 230)).decoration(TextDecoration.ITALIC, false))
-            .append(Component.text(" «").color(TextColor.color(NamedTextColor.GRAY)).decoration(TextDecoration.ITALIC, false)), "Équipes", () -> {
+    TEAM_SELECTOR(Material.PAPER, Component.text("» ").color(TextColor.color(NamedTextColor.GRAY))
+            .append(Component.text("Choisir son équipe").color(TextColor.color(60, 130, 230))
+            .append(Component.text(" «").color(TextColor.color(NamedTextColor.GRAY)))).decoration(TextDecoration.ITALIC, false), "Équipes", () -> {
         ItemStack teamSelector = new ItemStack(Material.PAPER, 1);
         ItemMeta teamSelectorMeta = teamSelector.getItemMeta();
 
+        teamSelectorMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
+        teamSelectorMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
         teamSelectorMeta.displayName(Component.text("» ").color(TextColor.color(NamedTextColor.GRAY))
-                .append(Component.text("Choisir son équipe").color(TextColor.color(60, 130, 230))
-                .append(Component.text(" «").color(TextColor.color(NamedTextColor.GRAY))).decoration(TextDecoration.ITALIC, false)));
+                .append(Component.text("Choisir son équipe").color(TextColor.color(60, 130, 255))
+                .append(Component.text(" «").color(TextColor.color(NamedTextColor.GRAY)))).decoration(TextDecoration.ITALIC, false));
         teamSelector.setItemMeta(teamSelectorMeta);
 
         return teamSelector;
