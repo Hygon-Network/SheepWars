@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IncendiarySheep extends CustomSheep {
-    private int activeTicks = 0;
-
     public IncendiarySheep(Player player) {
         super(((CraftPlayer) player).getHandle());
 
@@ -30,11 +28,7 @@ public class IncendiarySheep extends CustomSheep {
     public void tick() {
         super.tick();
 
-        if(isOnGround()) {
-            activeTicks++;
-        }
-
-        if(activeTicks == 80) {
+        if (ticksOnGround == 80) {
             burnGround();
             discard();
 
@@ -47,7 +41,7 @@ public class IncendiarySheep extends CustomSheep {
 
         }
 
-        if (activeTicks % 3 == 0) {
+        if (ticksOnGround % 3 == 0) {
             setColor(getColor() == DyeColor.ORANGE ? DyeColor.WHITE : DyeColor.ORANGE);
             getBukkitEntity().getWorld().playSound(getBukkitEntity().getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 1.0F, 0.7F);
         }
@@ -65,8 +59,8 @@ public class IncendiarySheep extends CustomSheep {
         int radius = MapSettings.incendiarySheepRadius;
         int rSquared = radius * radius;
 
-        for (int xLoc = x - radius; xLoc <= x +radius; xLoc++) {
-            for (int zLoc = z - radius; zLoc <= z +radius; zLoc++) {
+        for (int xLoc = x - radius; xLoc <= x + radius; xLoc++) {
+            for (int zLoc = z - radius; zLoc <= z + radius; zLoc++) {
                 if ((x - xLoc) * (x - xLoc) + (z - zLoc) * (z - zLoc) <= rSquared) {
                     if (ThreadLocalRandom.current().nextInt(0, 100) <= MapSettings.incendiarySheepPower) {
                         int yLoc = y - 2;

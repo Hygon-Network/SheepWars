@@ -9,8 +9,6 @@ import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class ExplosiveSheep extends CustomSheep {
-    private int ticksOnGround = 0;
-
     public ExplosiveSheep(Player player) {
         super(((CraftPlayer) player).getHandle());
 
@@ -24,9 +22,7 @@ public class ExplosiveSheep extends CustomSheep {
 
     @Override
     public void tick() {
-        if(isOnGround()) {
-            ticksOnGround++;
-        }
+        super.tick();
 
         if(ticksOnGround >= 20 && ticksOnGround < 60) {
 
@@ -55,6 +51,5 @@ public class ExplosiveSheep extends CustomSheep {
             getBukkitEntity().getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, getX(), getY(), getZ(), 50, 0.2, 0.2, 0.2, 1, null, true);
             getBukkitEntity().getWorld().spawnParticle(Particle.EXPLOSION_LARGE, getX(), getY(), getZ(), 10, 2, 2, 2, 1, null, true);
         }
-        super.tick();
     }
 }

@@ -30,6 +30,8 @@ public class AntiGravitySheep extends CustomSheep {
 
     @Override
     public void tick() {
+        super.tick();
+
         for(int i = 0; i < 4; i ++) {
             double randomX = getX() + ThreadLocalRandom.current().nextDouble(-2, 2);
             double randomY = getY() + ThreadLocalRandom.current().nextDouble(-2, 2);
@@ -38,6 +40,5 @@ public class AntiGravitySheep extends CustomSheep {
             level.getWorld().spawnParticle(Particle.SMOKE_LARGE, randomX, randomY, randomZ, 0, 3, 3, 3, 0, null, true);
         }
         level.getWorld().spawnParticle(Particle.LAVA, getX(), getY(), getZ(), 4, 1, 1, 1, 0, null, true);
-        super.tick();
     }
 }

@@ -34,6 +34,7 @@ public class IcingSheep extends CustomSheep {
     @Override
     public void tick() {
         super.tick();
+
         getBukkitEntity().getWorld().spawnParticle(Particle.CLOUD, getX(), getY(), getZ(), 4, 1, 1, 1, 0, null, true);
         findPlayersInRadius(MapSettings.icingSheepRadiusEffect).forEach(player -> {
             player.setFreezeTicks(player.getMaxFreezeTicks());

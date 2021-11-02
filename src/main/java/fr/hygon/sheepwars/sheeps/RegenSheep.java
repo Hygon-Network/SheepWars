@@ -10,8 +10,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class RegenSheep extends CustomSheep {
-    private int ticksOnGround = 0;
-
     public RegenSheep(Player player) {
         super(((CraftPlayer) player).getHandle());
 
@@ -25,13 +23,10 @@ public class RegenSheep extends CustomSheep {
 
     @Override
     public void tick() {
-        if(isOnGround()) {
-            ticksOnGround++;
+        super.tick();
 
-            if (ticksOnGround % 20 == 0) {
-                getBukkitEntity().getWorld().spawnParticle(Particle.HEART, getX(), getY() + 1.2, getZ(), 10, 0.5, 0.3, 0.5, 1, null, true);
-            }
-
+        if (ticksOnGround % 20 == 0) {
+            getBukkitEntity().getWorld().spawnParticle(Particle.HEART, getX(), getY() + 1.2, getZ(), 10, 0.5, 0.3, 0.5, 1, null, true);
         }
 
         for(Entity entities : getBukkitMob().getNearbyEntities(MapSettings.regenSheepHealDistance, MapSettings.regenSheepHealDistance, MapSettings.regenSheepHealDistance)) {
@@ -41,8 +36,6 @@ public class RegenSheep extends CustomSheep {
                 }
             }
         }
-
-        super.tick();
 
         if(ticksOnGround == 6 * 20) {
             discard();
