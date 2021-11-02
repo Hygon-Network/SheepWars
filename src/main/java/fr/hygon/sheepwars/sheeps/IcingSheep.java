@@ -4,6 +4,8 @@ import fr.hygon.sheepwars.game.MapSettings;
 import fr.hygon.sheepwars.teams.TeamManager;
 import fr.hygon.sheepwars.teams.Teams;
 import net.minecraft.world.item.DyeColor;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -32,10 +34,13 @@ public class IcingSheep extends CustomSheep {
     @Override
     public void tick() {
         super.tick();
+        getBukkitEntity().getWorld().spawnParticle(Particle.CLOUD, getX(), getY(), getZ(), 4, 1, 1, 1, 0, null, true);
         findPlayersInRadius(MapSettings.icingSheepRadiusEffect).forEach(player -> {
             player.setFreezeTicks(player.getMaxFreezeTicks());
-            if(tickCount % 20 == 0) {
+            if(tickCount % 40 == 0) {
                 player.damage(2, getLauncher().getBukkitEntity());
+                player.playSound(player.getLocation(), Sound.BLOCK_GLASS_BREAK, 2.0F, 0.1F);
+                player.getWorld().spawnParticle(Particle.CLOUD, player.getLocation(), 30, 0.2, 0.4, 0.2, 0.3, null, true);
             }
         });
     }

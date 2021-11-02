@@ -52,28 +52,34 @@ public class CustomScoreboard {
                         .append(Component.text(" •").color(NamedTextColor.GRAY))));
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        Score bar1 = objective.getScore("§r§8---------------");
-        bar1.setScore(7);
-
-        Score timeScore = objective.getScore("§6Temps: §a" + time);
-        timeScore.setScore(6);
-
-        Score empty = objective.getScore("§0");
-        empty.setScore(5);
+        Score bar1 = objective.getScore("§r§8§m§l---------------");
+        bar1.setScore(9);
 
         Score game = objective.getScore("§7Partie §8»");
-        game.setScore(4);
+        game.setScore(8);
 
-        Score deathsScores = objective.getScore("Prochaine laine §8» §a" + newWoolTime);
-        deathsScores.setScore(3);
+        Score deathsScores = objective.getScore("Mouton §7» §e" + newWoolTime + "s");
+        deathsScores.setScore(7);
 
-        Score killStreakScore = objective.getScore("Prochain bonus §8» §a" + newBonusTime);
-        killStreakScore.setScore(2);
+        Score killStreakScore = objective.getScore("Bonus §7» §e" + newBonusTime + "s");
+        killStreakScore.setScore(6);
 
-        Score killsScore = objective.getScore("Kills §8» §a" + kills);
-        killsScore.setScore(1);
+        Score killsScore = objective.getScore("Kills §7» §e" + kills);
+        killsScore.setScore(5);
 
-        Score bar2 = objective.getScore("§8---------------");
+        Score empty2 = objective.getScore("§1");
+        empty2.setScore(4);
+
+        Score players = objective.getScore("§7Joueurs §8»");
+        players.setScore(3);
+
+        Score orangePlayersAlive = objective.getScore("§6Oranges §7» §a0");
+        orangePlayersAlive.setScore(2);
+
+        Score purplePlayersAlive = objective.getScore("§5Violets §7» §a0" );
+        purplePlayersAlive.setScore(1);
+
+        Score bar2 = objective.getScore("§8§m§l---------------");
         bar2.setScore(0);
 
         player.setScoreboard(scoreboard);
