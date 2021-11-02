@@ -26,7 +26,13 @@ public class GUIManager implements Listener {
         if(clickedItem.equals(ItemsList.TEAM_SELECTOR.getPreparedItemStack())) {
             Inventory GUI = Bukkit.createInventory(null, 9, ItemsList.TEAM_SELECTOR.getInventoryName());
             GUI.setItem(0, ItemsList.ORANGE_TEAM.getPreparedItemStack());
+            GUI.setItem(1, ItemsList.ORANGE_GLASS_PANE.getPreparedItemStack());
+            GUI.setItem(2, ItemsList.ORANGE_GLASS_PANE.getPreparedItemStack());
+            GUI.setItem(3, ItemsList.ORANGE_GLASS_PANE.getPreparedItemStack());
             GUI.setItem(4, ItemsList.RANDOM_TEAM.getPreparedItemStack());
+            GUI.setItem(5, ItemsList.PURPLE_GLASS_PANE.getPreparedItemStack());
+            GUI.setItem(6, ItemsList.PURPLE_GLASS_PANE.getPreparedItemStack());
+            GUI.setItem(7, ItemsList.PURPLE_GLASS_PANE.getPreparedItemStack());
             GUI.setItem(8, ItemsList.PURPLE_TEAM.getPreparedItemStack());
 
             player.openInventory(GUI);
