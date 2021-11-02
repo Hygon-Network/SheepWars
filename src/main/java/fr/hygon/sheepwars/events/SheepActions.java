@@ -6,12 +6,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftSheep;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -64,6 +66,13 @@ public class SheepActions implements Listener {
                 ((CraftWorld) world).getHandle().addEntity(customSheep, CreatureSpawnEvent.SpawnReason.CUSTOM);
                 clickedItem.setAmount(clickedItem.getAmount() - 1);
             }
+        }
+    }
+
+    @EventHandler
+    public void onEntityTurnToBlock(EntityDropItemEvent event) {
+        if(event.getEntity() instanceof FallingBlock) {
+            event.setCancelled(true);
         }
     }
 }

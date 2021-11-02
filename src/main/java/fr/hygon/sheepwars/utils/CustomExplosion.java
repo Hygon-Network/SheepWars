@@ -73,6 +73,6 @@ public record CustomExplosion(Player damager, Location centerBlock, int power, d
     }
 
     private static Vector getRandomVector() {
-        return new Vector(ThreadLocalRandom.current().nextDouble(0, 1), ThreadLocalRandom.current().nextDouble(0.3, 1), ThreadLocalRandom.current().nextDouble(0, 1));
+        return new Vector(ThreadLocalRandom.current().nextDouble(-1, 1), ThreadLocalRandom.current().nextDouble(0.3, 1), ThreadLocalRandom.current().nextDouble(-1, 1));
     }
 }
