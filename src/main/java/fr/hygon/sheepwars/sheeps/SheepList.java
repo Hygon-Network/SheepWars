@@ -2,6 +2,7 @@ package fr.hygon.sheepwars.sheeps;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,14 +12,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
 public enum SheepList {
-    ASSAULT(Component.text("Mouton d'abordage"), Material.WHITE_WOOL, AssaultSheep.class),
-    SEARCHER(Component.text("Mouton chercheur").color(TextColor.color(0, 200, 15)), Material.LIME_WOOL, SearchingSheep.class),
-    REGENERATION(Component.text("Mouton régénérateur").color(TextColor.color(245, 100, 200)), Material.PINK_WOOL, RegenSheep.class),
-    EXPLOSIVE(Component.text("Mouton explosif").color(TextColor.color(220, 0, 25)), Material.RED_WOOL, ExplosiveSheep.class),
-    INCENDIARY(Component.text("Mouton incendiaire").color(TextColor.color(255, 120, 0)), Material.ORANGE_WOOL, IncendiarySheep.class),
-    ANTIGRAVITY(Component.text("Mouton à antigravité").color(TextColor.color(20, 20, 20)), Material.BLACK_WOOL, AntiGravitySheep.class),
-    ICING(Component.text("Mouton glaçant").color(TextColor.color(0, 200, 250)), Material.CYAN_WOOL, IcingSheep.class),
-    GLOWING(Component.text("Mouton lumineux").color(TextColor.color(255, 210, 0)), Material.YELLOW_WOOL, GlowingSheep.class);
+    ASSAULT(Component.text("Mouton d'Abordage").decoration(TextDecoration.ITALIC, false), Material.WHITE_WOOL, AssaultSheep.class),
+    SEARCHER(Component.text("Mouton Chercheur").color(TextColor.color(0, 200, 15)).decoration(TextDecoration.ITALIC, false), Material.LIME_WOOL, SearchingSheep.class),
+    REGENERATION(Component.text("Mouton Régénérateur").color(TextColor.color(245, 100, 200)).decoration(TextDecoration.ITALIC, false), Material.PINK_WOOL, RegenSheep.class),
+    EXPLOSIVE(Component.text("Mouton Explosif").color(TextColor.color(220, 0, 25)).decoration(TextDecoration.ITALIC, false), Material.RED_WOOL, ExplosiveSheep.class),
+    INCENDIARY(Component.text("Mouton Incendiaire").color(TextColor.color(255, 120, 0)).decoration(TextDecoration.ITALIC, false), Material.ORANGE_WOOL, IncendiarySheep.class),
+    ANTIGRAVITY(Component.text("Mouton à Antigravité").color(TextColor.color(90, 90, 90)).decoration(TextDecoration.ITALIC, false), Material.BLACK_WOOL, AntiGravitySheep.class),
+    ICING(Component.text("Mouton Glaçant").color(TextColor.color(0, 200, 250)).decoration(TextDecoration.ITALIC, false), Material.CYAN_WOOL, IcingSheep.class),
+    GLOWING(Component.text("Mouton Lumineux").color(TextColor.color(255, 210, 0)).decoration(TextDecoration.ITALIC, false), Material.YELLOW_WOOL, GlowingSheep.class);
 
     private final Component name;
     private final Material wool;

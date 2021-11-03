@@ -8,12 +8,18 @@ import fr.hygon.sheepwars.teams.Teams;
 import fr.hygon.yokura.YokuraAPI;
 import fr.hygon.yokura.servers.Status;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -40,13 +46,14 @@ public class GameManager {
                         YokuraAPI.setStatus(Status.STARTING);
                     }
                     switch (timer) {
-                        case 20, 10, 5, 4, 3, 2, 1 -> Bukkit.broadcast(
-                                Component.text("La partie commence dans ").color(TextColor.color(255, 190, 0))
-                                        .append(Component.text(timer).color(TextColor.color(0, 180, 0)))
-                                        .append(Component.text(" secondes.").color(TextColor.color(255, 190, 0)))
+                        case 20, 10, 5, 4, 3, 2, 1 -> Bukkit.broadcast(Component.text("» ").color(TextColor.color(NamedTextColor.GRAY))
+                                .append(Component.text("La partie commence dans ").color(TextColor.color(255, 255, 75))
+                                .append(Component.text(timer).color(TextColor.color(250, 65, 65)))
+                                .append(Component.text(" secondes.").color(TextColor.color(255, 255, 75))))
                         );
                         case 0 -> {
-                            Bukkit.broadcast(Component.text("La partie commence!").color(TextColor.color(0, 150, 0)));
+                            Bukkit.broadcast(Component.text("» ").color(TextColor.color(NamedTextColor.GRAY))
+                                    .append(Component.text("La partie commence!").color(TextColor.color(255, 255, 75))));
                             cancel();
                             startGame();
                         }
@@ -144,13 +151,25 @@ public class GameManager {
     public static void endGame(Teams winningTeam) {
         gameStatus = GameStatus.FINISHED;
 
-        Bukkit.broadcast(Component.text("Fin de la partie! L'équipe ").color(TextColor.color(20, 175, 225))
+        Bukkit.broadcast(Component.text("» ").color(TextColor.color(NamedTextColor.GRAY))
+                .append(Component.text("Fin de la partie! L'Équipe ").color(TextColor.color(255, 255, 75))
                 .append(winningTeam.getName())
-                .append(Component.text("a gagnée!").color(TextColor.color(20, 175, 225))));
+                .append(Component.text(" a gagnée!").color(TextColor.color(255, 255, 75))
+                .append(Component.text(" «").color(TextColor.color(NamedTextColor.GRAY))))));
 
         for (Player players : Bukkit.getOnlinePlayers()) {
-            if(TeamManager.getTeam(players) == winningTeam) { // TODO should we only give coins to players that stayed alive or should we also give them to the players that died?
+            if(TeamManager.getTeam(players) == winningTeam) { // TODO should we only give coins to players that stayed alive or should we also give them to the players that died? (Shep edit: oe mais avec une réduction)
                 players.addCoins(20); // TODO is 20 a good value?
+
+                final Title.Times times = Title.Times.of(Duration.ofMillis(1000), Duration.ofMillis(5000), Duration.ofMillis(1000));
+                final Title title = Title.title((Component.text("VICTOIRE!").color(TextColor.color(255, 200, 75)).decoration(TextDecoration.BOLD, true)), Component.text(""), times);
+                players.showTitle(title);
+                players.playSound(players.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0F, 1F);
+            } else {
+                final Title.Times times = Title.Times.of(Duration.ofMillis(1000), Duration.ofMillis(5000), Duration.ofMillis(1000));
+                final Title title = Title.title((Component.text("DÉFAITE!").color(TextColor.color(255, 60, 45)).decoration(TextDecoration.BOLD, true)), Component.text(""), times);
+                players.showTitle(title);
+                players.playSound(players.getLocation(), Sound.BLOCK_ANVIL_BREAK, 1.0F, 0F);
             }
         }
     }
